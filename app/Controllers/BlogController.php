@@ -14,7 +14,7 @@ class BlogController extends Controller
   
         $data['articles'] = $model->orderBy('id', 'DESC')->findAll();
          
-        return view('dashboard/index', $data);
+        return view('dashboard/articles', $data);
     }    
  
   
