@@ -11924,7 +11924,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 .nav-sidebar .nav-header {
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 0.5rem;
 }
 

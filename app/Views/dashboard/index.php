@@ -17,31 +17,33 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered" id="articleTable">
-                            <thead>
-                                <tr>
-                                    <th>S/N</th>
-                                    <th>Title</th>
-                                    <th>Posted On</th>                                   
-                                    <th width="280px">Action</th>
-                                </tr>
-                            </thead>  
-                            <tbody>
-                                <?php if($articles): ?>
-                                    <?php foreach($articles as $row): ?>
-                                        <tr id="<?= $row['id']; ?>">
-                                            <td><?= $row['id']; ?></td>
-                                            <td><?= $row['title']; ?></td>
-                                            <td><?= $row['created_at']; ?></td>
-                                            <td>
-                                            <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>
-                                            <a data-id="<?= $row['id']; ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="articleTable">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>Title</th>
+                                        <th>Posted On</th>                                   
+                                        <th width="280px">Action</th>
+                                    </tr>
+                                </thead>  
+                                <tbody>
+                                    <?php if($articles): ?>                                        
+                                        <?php foreach($articles as $row): ?>
+                                            <tr id="<?= $row['id']; ?>">
+                                                <td><?= $count++ +1; ?></td>
+                                                <td><?= $row['title']; ?></td>
+                                                <td><?= $row['created_at']; ?></td>
+                                                <td>
+                                                <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit mb-2"><i class="fa fa-edit text-light"></i></a>
+                                                <a data-id="<?= $row['id']; ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,8 +131,8 @@
                           var article = '<tr id="'+res.data.id+'">';
                           article += '<td>' + res.data.id + '</td>';
                           article += '<td>' + res.data.title + '</td>';
-                          article += '<td>' + res.data.description + '</td>';
-                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Edit</a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Delete</a></td>';
+                          article += '<td>' + res.data.created_at + '</td>';
+                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
                           article += '</tr>';            
                           $('#articleTable tbody').prepend(article);
                           $('#addPost')[0].reset();
@@ -178,7 +180,7 @@
                           var article = '<td>' + res.data.id + '</td>';
                           article += '<td>' + res.data.title + '</td>';
                           article += '<td>' + res.data.created_at + '</td>';                         
-                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Edit</a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Delete</a></td>';
+                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
                           $('#articleTable tbody #'+ res.data.id).html(article);
                           $('#updatePost')[0].reset();
                           $('#updateModal').modal('hide');
