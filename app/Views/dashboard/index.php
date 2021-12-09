@@ -35,7 +35,7 @@
                                                 <td><?= $row['title']; ?></td>
                                                 <td><?= $row['created_at']; ?></td>
                                                 <td>
-                                                <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit mb-2"><i class="fa fa-edit text-light"></i></a>
+                                                <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>
                                                 <a data-id="<?= $row['id']; ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
                                                 </td>
                                             </tr>
@@ -128,9 +128,19 @@
                       type: "POST",
                       dataType: 'json',
                       success: function (res) {
-                          location.reload();
+                        var article = '<td>' + res.data.id + '</td>';
+                          article += '<td>' + res.data.title + '</td>';
+                          article += '<td>' + res.data.created_at + '</td>';
+                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
+                          $('#articleTable tbody').prepend(article);
+
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Article Added!',
+                            position:'topCenter',
+                        });
                           $('#addPost')[0].reset();
-                          $('#addModal').modal('hide');
+                          $('#addModal').modal('hide');                         
                       },
                       error: function (data) {
                       }
@@ -176,6 +186,11 @@
                           article += '<td>' + res.data.created_at + '</td>';                         
                           article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
                           $('#articleTable tbody #'+ res.data.id).html(article);
+                            iziToast.success({
+                                title: 'Success',
+                                message: 'Article Updated!',
+                                position:'topCenter',
+                            });
                           $('#updatePost')[0].reset();
                           $('#updateModal').modal('hide');
                       },
@@ -190,7 +205,12 @@
               var article_id = $(this).attr('data-id');
               $.get("<?=base_url('post/delete/') ?>" + "/" +article_id, function (data) {
                   $('#articleTable tbody #'+ article_id).remove();
-                  location.reload();
+                  iziToast.error({
+                    title: 'Error',
+                    message: 'Article Deleted!',
+                    position:'topCenter',
+                    timeout:1000,                    
+                });
               })
            });  
            

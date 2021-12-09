@@ -32,6 +32,7 @@ class BlogController extends Controller
         if($save != false)
         {
             $data = $model->where('id', $save)->first();
+            
             echo json_encode(array("status" => true , 'data' => $data));
         }
         else{

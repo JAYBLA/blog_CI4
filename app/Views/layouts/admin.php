@@ -26,6 +26,10 @@
   <link rel="stylesheet" href="<?= base_url('plugins/summernote/summernote-bs4.css') ?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   
+  <!-- iziToast CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"/>
+
   <?= $this->renderSection('stylesheet') ?>
 
 </head>
@@ -250,6 +254,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="assets/js/demo.js"></script>
 <?= $this->renderSection('javascript') ?>
+   
+
+<!-- iziToast -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
 
 <!-- INTERNAL Data tables -->        
       <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
