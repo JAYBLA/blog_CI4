@@ -60,13 +60,12 @@ class BlogController extends Controller
           
         $model = new BlogModel();
  
-        $id = $this->request->getVar('hdnStudentId');
+        $id = $this->request->getVar('hdnArticleId');
  
          $data = [
-            'first_name' => $this->request->getVar('txtFirstName'),
-            'last_name'  => $this->request->getVar('txtLastName'),
-            'address'  => $this->request->getVar('txtAddress'),
-            ];
+            'title' => $this->request->getVar('txttitle'),
+            'description'  => $this->request->getVar('txtdescription'),            
+        ];
  
         $update = $model->update($id,$data);
         if($update != false)

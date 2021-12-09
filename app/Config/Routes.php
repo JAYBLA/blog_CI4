@@ -35,6 +35,7 @@ $routes->get('/', 'BlogController::index');
 $routes->post('post/store', 'BlogController::store');
 $routes->get('post/update/(:num)', 'BlogController::edit/$1');
 $routes->get('post/delete/(:num)', 'BlogController::delete/$1');
+$routes->post('post/update', 'BlogController::update/$1');
 
 
 /*

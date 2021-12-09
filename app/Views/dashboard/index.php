@@ -128,13 +128,7 @@
                       type: "POST",
                       dataType: 'json',
                       success: function (res) {
-                          var article = '<tr id="'+res.data.id+'">';
-                          article += '<td>' + res.data.id + '</td>';
-                          article += '<td>' + res.data.title + '</td>';
-                          article += '<td>' + res.data.created_at + '</td>';
-                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
-                          article += '</tr>';            
-                          $('#articleTable tbody').prepend(article);
+                          location.reload();
                           $('#addPost')[0].reset();
                           $('#addModal').modal('hide');
                       },
@@ -153,7 +147,7 @@
                       dataType: 'json',
                       success: function (res) {
                           $('#updateModal').modal('show');
-                          $('#updatePost #hdnarticleId').val(res.data.id); 
+                          $('#updatePost #hdnArticleId').val(res.data.id); 
                           $('#updatePost #txttitle').val(res.data.title);
                           $('#updatePost #txtdescription').val(res.data.description);                          
                       },
@@ -196,6 +190,7 @@
               var article_id = $(this).attr('data-id');
               $.get("<?=base_url('post/delete/') ?>" + "/" +article_id, function (data) {
                   $('#articleTable tbody #'+ article_id).remove();
+                  location.reload();
               })
            });  
            
