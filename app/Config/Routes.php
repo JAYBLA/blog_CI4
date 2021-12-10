@@ -31,7 +31,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'BlogController::index');
+$routes->get('/admin', 'BlogController::index',['filter' => 'auth']);
+$routes->get('admin/login', 'Login::index');
+$routes->post('admin/login', 'Login::auth');
+$routes->get('admin/logout', 'Login::logout');
+$routes->get('admin/signup', 'Register::index');
+$routes->post('admin/signup', 'Register::save');
 $routes->post('post/store', 'BlogController::store');
 $routes->get('post/update/(:num)', 'BlogController::edit/$1');
 $routes->get('post/delete/(:num)', 'BlogController::delete/$1');

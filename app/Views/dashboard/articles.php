@@ -49,7 +49,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtdescription">Description:</label>
-                                <textarea name="txtdescription" id="txtdescription" class="form-control" placeholder="Enter Description" cols="30" rows="10"></textarea>            
+                                <textarea name="txtdescription" id="txtdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>            
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Add</button>
                         </form>
@@ -76,7 +76,7 @@
             </div>
 
                     <!-- Update User Modal -->
-        <div id="updateModal" class="modal fade" role="dialog">
+        <div id="updateModal" class="modal fade" role="dialog" data-backdrop="static">
           <div class="modal-dialog">
           
             <!-- User Modal content-->
@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group">
                         <label for="txtdescription">Description:</label>
-                        <textarea name="txtdescription" id="txtdescription" class="form-control"  cols="30" rows="10"></textarea>            
+                        <textarea name="txtdescription" id="txtdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>           
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
