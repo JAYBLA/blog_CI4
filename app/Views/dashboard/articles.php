@@ -9,7 +9,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-            <div class="col-12">
+            <div class="col-12 tinymce">
                 <div class="card">
                     <div class="card-header">
                         <h4>Articles List
@@ -50,7 +50,7 @@
 
             <!-- Modal -->
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLabel">Add Article</h5>
@@ -66,7 +66,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtdescription">Description:</label>
-                                <textarea name="txtdescription" id="txtdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>            
+                                <textarea name="txtdescription" id="txtdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>
+                                <script>
+                                        CKEDITOR.replace( 'txtdescription' );
+                                </script>           
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Add</button>
                         </form>
@@ -75,11 +78,11 @@
                 </div>
             </div>
 
-                    <!-- Update User Modal -->
+                    <!-- Update  Modal -->
         <div id="updateModal" class="modal fade" role="dialog" data-backdrop="static">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-xl">
           
-            <!-- User Modal content-->
+            <!--  Modal content-->
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="updateModal">Update Article</h5>
@@ -95,8 +98,11 @@
                         <input type="text" class="form-control" id="txttitle" name="txttitle">
                     </div>
                     <div class="form-group">
-                        <label for="txtdescription">Description:</label>
-                        <textarea name="txtdescription" id="txtdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>           
+                        <label for="editdescription">Description:</label>
+                        <textarea name="editdescription" id="editdescription" class="form-control" name="body" placeholder="Enter Description" cols="30" rows="10"></textarea>
+                        <script>
+                                CKEDITOR.replace( 'editdescription' );
+                        </script>          
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
@@ -148,6 +154,12 @@
                 }
             });
 
+            function CKupdate(){
+                for(instance in CKEDITOR.instance){
+                    CKEDITOR.instances['editdescription'].updateElement();
+                }
+            }
+
             //When click edit Post
             $('body').on('click', '.btnEdit', function () {
               var article_id = $(this).attr('data-id');
@@ -158,8 +170,11 @@
                       success: function (res) {
                           $('#updateModal').modal('show');
                           $('#updatePost #hdnArticleId').val(res.data.id); 
-                          $('#updatePost #txttitle').val(res.data.title);
-                          $('#updatePost #txtdescription').val(res.data.description);                          
+                          $('#updatePost #txttitle').val(res.data.title);                          
+                          $('#updatePost #editdescription').val(res.data.description)
+                          ;
+                        CKupdate();
+                        CKEDITOR.instances['editdescription'].setData(editdescription);                           
                       },
                       error: function (data) {
                       }
@@ -169,14 +184,16 @@
             $("#updatePost").validate({
                  rules: {
                         txttitle: "required",
-                        txtdescription: "required",                        
+                        editdescription: "required",                        
                     },
                     messages: {
                     },
                  submitHandler: function(form) {
+                    for ( instance in CKEDITOR.instances )
+                    CKEDITOR.instances[instance].updateElement();
                   var form_action = $("#updatePost").attr("action");
                   $.ajax({
-                      data: $('#updatePost').serialize(),
+                      data: $('#updatePost').serialize(),                      
                       url: form_action,
                       type: "POST",
                       dataType: 'json',

@@ -65,7 +65,7 @@ class BlogController extends Controller
  
          $data = [
             'title' => $this->request->getVar('txttitle'),
-            'description'  => $this->request->getVar('txtdescription'),            
+            'description'  => $this->request->getVar('editdescription'),            
         ];
  
         $update = $model->update($id,$data);

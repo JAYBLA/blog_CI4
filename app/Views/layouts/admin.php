@@ -30,6 +30,7 @@
   <!-- iziToast CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"/>
   
+  <script src="<?= base_url('plugins/ckeditor/ckeditor.js') ?>"></script>
 
   <?= $this->renderSection('stylesheet') ?>
 
@@ -160,9 +161,6 @@
       <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
-  <script src="http://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
-  <script>
-          CKEDITOR.replace( 'txtdescription' );
-  </script>
+
 </body>
 </html>
