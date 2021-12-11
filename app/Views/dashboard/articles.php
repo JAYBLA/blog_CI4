@@ -30,13 +30,13 @@
                                 <tbody>
                                     <?php if($articles): ?>                                        
                                         <?php foreach($articles as $row): ?>
-                                            <tr id="<?= $row['id']; ?>">
-                                                <td><?= $count++ +1; ?></td>
-                                                <td><?= $row['title']; ?></td>
+                                            <tr id="<?= $row['id'] ?>">
+                                                <td><?= $count++ +1 ?></td>
+                                                <td><?= $row['title'] ?></td>
                                                 <td><?= date('Y-m-d', strtotime($row['created_at'])) ?></td>
                                                 <td>
-                                                <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>
-                                                <a data-id="<?= $row['id']; ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
+                                                <a data-id="<?= $row['id'] ?>" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>
+                                                <a data-id="<?= $row['id'] ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -144,6 +144,7 @@
                             title: 'Success',
                             message: 'Article Added!',
                             position:'topCenter',
+                            timeout:1000,
                         });
                           $('#addPost')[0].reset();
                           $('#addModal').modal('hide');                         
@@ -207,6 +208,7 @@
                                 title: 'Success',
                                 message: 'Article Updated!',
                                 position:'topCenter',
+                                timeout:1000,
                             });
                           $('#updatePost')[0].reset();
                           $('#updateModal').modal('hide');
@@ -222,8 +224,8 @@
               var article_id = $(this).attr('data-id');
               $.get("<?=base_url('post/delete/') ?>" + "/" +article_id, function (data) {
                   $('#articleTable tbody #'+ article_id).remove();
-                  iziToast.error({
-                    title: 'Error',
+                  iziToast.success({
+                    title: 'Success',
                     message: 'Article Deleted!',
                     position:'topCenter',
                     timeout:1000,                    
