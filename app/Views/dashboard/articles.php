@@ -33,7 +33,7 @@
                                             <tr id="<?= $row['id']; ?>">
                                                 <td><?= $count++ +1; ?></td>
                                                 <td><?= $row['title']; ?></td>
-                                                <td><?= $row['created_at']; ?></td>
+                                                <td><?= date('Y-m-d', strtotime($row['created_at'])) ?></td>
                                                 <td>
                                                 <a data-id="<?= $row['id']; ?>" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>
                                                 <a data-id="<?= $row['id']; ?>" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a>
