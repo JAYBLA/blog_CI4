@@ -6,8 +6,7 @@ use CodeIgniter\Controller;
 use App\Models\BlogModel;
   
 class BlogController extends Controller
-{
-  
+{  
     public function index()
     {    
         $model = new BlogModel();
@@ -23,11 +22,15 @@ class BlogController extends Controller
         helper(['form', 'url']);
           
         $model = new BlogModel();
-         
+
+        $image = $this->request->getFile('featured_image');
+        $image->move(WRITEPATH . 'uploads'); 
+        
         $data = [
             'title' => $this->request->getVar('txttitle'),
             'description'  => $this->request->getVar('txtdescription'),
-            ];
+            'featured_image'  => $image->getClientName(),
+        ];
         $save = $model->insert_data($data);
         if($save != false)
         {

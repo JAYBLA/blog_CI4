@@ -5,6 +5,11 @@
      .dataTables_filter{
          float: right !important;
      }
+     #preview-image{
+        margin-top:10px;
+        width:200px;
+        height:auto;
+    }
  </style>
 <?= $this->endSection() ?>
 
@@ -59,7 +64,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="addPost" name="addPost" action="<?= base_url('post/store');?>" method="post">
+                        <form id="addPost" name="addPost" action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="txttitle">Title:</label>
                                 <input type="text" class="form-control" id="txttitle" placeholder="Enter Title" name="txttitle">
@@ -70,6 +75,11 @@
                                 <script>
                                         CKEDITOR.replace( 'txtdescription' );
                                 </script>           
+                            </div>
+                            <div class="form-group">
+                                <label for="txtdescription">Featured Image:</label>
+                                <input type="file" name="featured_image" class="form-control" id="featured_image" onchange="previewImageFile(this);" accept="image/*" />
+                                <img src="" alt="Image preview" id="preview-image" class="d-none">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Add</button>
                         </form>
@@ -116,44 +126,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
  <script>
      $(document).ready(function () {
-                     //Add the article  
-                $("#addPost").validate({
-                 rules: {
-                    txttitle: "required",
-                    txtdescription: "required",                       
-                },
-                messages: {
+                     //Add the article
+                
+                $('#addPost').on('submit', function (e) {
+                    e.preventDefault();
+                    if ($('#featured_image').val() == '') {
+                        alert("Choose File");
+                        document.getElementById("#addPost").reset();
+                    } 
+                    else {
+                        $.ajax({
+                        data: new FormData(this),
+                        url: "<?= base_url('post/store') ?>",
+                        type: "POST",
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        cache: false,                      
+                        success: function (res) {
+                            var article = '<td>' + res.data.id + '</td>';
+                            article += '<td>' + res.data.title + '</td>';
+                            article += '<td>' + res.data.created_at + '</td>';
+                            article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
+                            $('#articleTable tbody').prepend(article);
 
-                },
-          
-                 submitHandler: function(form) {
-                  var form_action = $("#addPost").attr("action");
-                  $.ajax({
-                      data: $('#addPost').serialize(),
-                      url: form_action,
-                      type: "POST",
-                      dataType: 'json',
-                      success: function (res) {
-                        var article = '<td>' + res.data.id + '</td>';
-                          article += '<td>' + res.data.title + '</td>';
-                          article += '<td>' + res.data.created_at + '</td>';
-                          article += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit"><i class="fa fa-edit text-light"></i></a>&nbsp;&nbsp;<a data-id="' + res.data.id + '" class="btn btn-danger btnDelete"><i class="fa fa-trash text-light"></i></a></td>';
-                          $('#articleTable tbody').prepend(article);
-
-                        iziToast.success({
-                            title: 'Success',
-                            message: 'Article Added!',
-                            position:'topCenter',
-                            timeout:1000,
-                        });
-                          $('#addPost')[0].reset();
-                          $('#addModal').modal('hide');                         
-                      },
-                      error: function (data) {
-                      }
-                  });
-                }
-            });
+                            iziToast.success({
+                                title: 'Success',
+                                message: 'Article Added!',
+                                position:'topCenter',
+                                timeout:1000,
+                            });
+                            $('#addPost')[0].reset();
+                            $('#addModal').modal('hide');                         
+                        },
+                        error: function (data) {
+                        }
+                    });}
+                    
+                
+                });
 
             function CKupdate(){
                 for(instance in CKEDITOR.instance){
@@ -240,5 +251,16 @@
 $(document).ready(function() {
     $('#articleTable').DataTable();
 } );
+</script>
+
+<script>
+  function previewImageFile(input, id) {
+    var output = document.getElementById('preview-image');
+        output.removeAttribute("class");
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+        }
+ }
 </script>
 <?= $this->endSection() ?>

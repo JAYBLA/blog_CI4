@@ -8,7 +8,7 @@ class BlogModel extends Model
 {
     protected $table = 'articles';
   
-    protected $allowedFields = ['title','description' ];
+    protected $allowedFields = ['title','description', 'featured_image' ];
      
     public function __construct() {
         parent::__construct();
